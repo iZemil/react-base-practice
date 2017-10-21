@@ -18,10 +18,10 @@ export default class User extends Component {
         email: '',
         password: ''
       },
-      firstNameIsValid: false,
-      lastNameIsValid: false,
-      emailIsValid: false,
-      passwordIsValid: false,
+      firstNameIsValid: true,
+      lastNameIsValid: true,
+      emailIsValid: true,
+      passwordIsValid: true,
       formIsValid: false
     };
     
@@ -78,6 +78,7 @@ export default class User extends Component {
   
   render() {
     let { firstNameIsValid, lastNameIsValid, emailIsValid, passwordIsValid } = this.state;
+    
     return (
         <div className="user">
           <form className="user-profile-form">
@@ -92,7 +93,9 @@ export default class User extends Component {
                   name="firstName"
                   value={this.state.firstName} 
                   onChange={this.handleInputChange} />
+                  {firstNameIsValid ? <div className="label__mark label__mark_valid"></div> : <div className="label__mark label__mark_invalid"></div>}
                 </label>
+                {firstNameIsValid ? null : <small>допустимы латинские или русские буквы и тире</small> }
               </div>
               <div className="user__data-row">
                 <label className="form__label">
@@ -103,7 +106,9 @@ export default class User extends Component {
                   name="lastName"
                   value={this.state.lastName} 
                   onChange={this.handleInputChange} />
+                  {lastNameIsValid ? <div className="label__mark label__mark_valid"></div> : <div className="label__mark label__mark_invalid"></div>}
                 </label>
+                {lastNameIsValid ? null : <small>допустимы латинские или русские буквы и тире</small> }
               </div>
               <div className="user__data-row">
                 <label className="form__label">
@@ -114,7 +119,9 @@ export default class User extends Component {
                   name="email"
                   value={this.state.email} 
                   onChange={this.handleInputChange} />
+                  {emailIsValid ? <div className="label__mark label__mark_valid"></div> : <div className="label__mark label__mark_invalid"></div>}
                 </label>
+                {emailIsValid ? null : <small>некорректный email</small> }
               </div>
               <div className="user__data-row">
                 <label className="form__label">
@@ -124,7 +131,9 @@ export default class User extends Component {
                   type="password"
                   name="password"
                   onChange={this.handleInputChange} />
+                  {passwordIsValid ? <div className="label__mark label__mark_valid"></div> : <div className="label__mark label__mark_invalid"></div>}
                 </label>
+                {passwordIsValid ? null : <small>некорректный пароль</small> }
               </div>
               <button className="btn user-profile-form__submit"
               disabled={!this.state.formIsValid}
