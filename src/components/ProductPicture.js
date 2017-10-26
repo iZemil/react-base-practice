@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import thumbnail from '../assets/img/product-default.png';
-import '../assets/css/App.css';
 
 export default class ProductPicture extends Component {
 
@@ -11,10 +10,10 @@ export default class ProductPicture extends Component {
       file: '',
       imagePreviewUrl: ''
     };
-    this._handleImageChange = this._handleImageChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
 
-  _handleImageChange(e) {
+  handleImageChange(e) {
     e.preventDefault();
 
     let reader = new FileReader();
@@ -45,9 +44,9 @@ export default class ProductPicture extends Component {
           {$imagePreview}
         </div>
         <label className="product__picture-btn btn">
+          <span>Загрузить фото</span>
           <input type="file" className="product__picture-input"
-          id="input"
-          onChange={this._handleImageChange}
+          onChange={this.handleImageChange}
            />
         </label>
       </div>

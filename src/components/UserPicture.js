@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import thumbnail from '../assets/img/thumbnail.gif';
-import '../assets/css/App.css';
 
 export default class UserPicture extends Component {
 
@@ -11,10 +10,10 @@ export default class UserPicture extends Component {
       file: '',
       imagePreviewUrl: ''
     };
-    this._handleImageChange = this._handleImageChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
 
-  _handleImageChange(e) {
+  handleImageChange(e) {
     e.preventDefault();
 
     let reader = new FileReader();
@@ -58,8 +57,7 @@ export default class UserPicture extends Component {
         <label className="user__picture-btn btn">
           <span>Загрузить фото</span>
           <input type="file" className="user__picture-input"
-          id="input"
-          onChange={this._handleImageChange}
+          onChange={this.handleImageChange}
            />
         </label>
       </div>

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import UserPicture from './UserPicture';
 import FormErrors from './FormErrors';
 
-import '../assets/css/App.css';
-
 export default class User extends Component {
   constructor (props) {
     super(props);
@@ -11,7 +9,7 @@ export default class User extends Component {
       firstName: 'Иван',
       lastName: 'Петров',
       email: 'xxxzei@mail.ru',
-      password: 'qwerty',
+      password: '',
       formErrors: {
         firstName: '',
         lastName: '',
@@ -28,10 +26,10 @@ export default class User extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   
-  handleInputChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    // const type = event.target.type;
+  handleInputChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    // const type = e.target.type;
     
     this.setState({
       [name]: value
@@ -77,14 +75,14 @@ export default class User extends Component {
   }
   
   render() {
-    let { firstNameIsValid, lastNameIsValid, emailIsValid, passwordIsValid } = this.state;
+    let { firstNameIsValid, lastNameIsValid, emailIsValid, passwordIsValid, password } = this.state;
     
     return (
         <div className="user">
           <form className="user-profile-form">
             <UserPicture />
             <div className="user__data">
-              <div className="user__data-row">
+              <div className="form__row">
                 <label className="form__label">
                   <span className="label__span">Имя:</span>
                   <input
@@ -97,7 +95,7 @@ export default class User extends Component {
                 </label>
                 {firstNameIsValid ? null : <small>допустимы латинские или русские буквы и тире</small> }
               </div>
-              <div className="user__data-row">
+              <div className="form__row">
                 <label className="form__label">
                   <span className="label__span">Фамилия:</span>
                   <input
@@ -110,7 +108,7 @@ export default class User extends Component {
                 </label>
                 {lastNameIsValid ? null : <small>допустимы латинские или русские буквы и тире</small> }
               </div>
-              <div className="user__data-row">
+              <div className="form__row">
                 <label className="form__label">
                   <span className="label__span">Почта:</span>
                   <input
@@ -123,7 +121,7 @@ export default class User extends Component {
                 </label>
                 {emailIsValid ? null : <small>некорректный email</small> }
               </div>
-              <div className="user__data-row">
+              <div className="form__row">
                 <label className="form__label">
                   <span className="label__span">Пароль:</span>
                   <input
@@ -133,16 +131,23 @@ export default class User extends Component {
                   onChange={this.handleInputChange} />
                   {passwordIsValid ? <div className="label__mark label__mark_valid"></div> : <div className="label__mark label__mark_invalid"></div>}
                 </label>
-                {passwordIsValid ? null : <small>некорректный пароль</small> }
+                {passwordIsValid ? null : <small>некорректный пароль:</small> }
+                <ul className="prompts">
+                  <li className={(/^[a-z@#$%^&*!\d]+$/i).test(password) ? "success" : "warning"}>только латинские буквы и @#$%^&*!</li>
+                  <li className={(/(?=.*[a-z])/).test(password) ? "success" : "warning"}>минимум 1 строчная буква</li>
+                  <li className={(/(?=.*[A-Z])/).test(password) ? "success" : "warning"}>минимум 1 заглавная буква</li>
+                  <li className={(/(?=.*[\d])/).test(password) ? "success" : "warning"}>минимум 1 цифра</li>
+                  <li className={(password.length >= 8 && password.length <=12) ? "success" : "warning"}>от 8 до 12 знаков</li>
+                </ul>
               </div>
               <button className="btn user-profile-form__submit"
               disabled={!this.state.formIsValid}
               >Обновить профиль</button>
             </div>
           </form>
-          <div className="panel panel-default">
+          {/*<div className="panel panel-default">
             <FormErrors formErrors={this.state.formErrors} />
-          </div>
+          </div>*/}
         </div>
     );
   }
